@@ -1,40 +1,17 @@
 name: DeathSpawn
 version: 0.8.0
 main: de.degra.deathspawn.Deathspawn
-author: Indyuce
+author: Degra
 api-version: "1.14"
-depend: []
+depend: [WorldGuard]
 commands:
-    addbounty:
-        description: Set a bounty on a player.
-        aliases: [bounty, setbounty]
-    bounties:
-        description: See all the active bounties.
-    hunters:
-        description: Opens the hunter leaderboard.
-        aliases: [hunterleaderboard,hunterlb]
+    dspawns:
+        description: "List the current deathspawn zones."
+    deathspawn:
+        description: "Use dspawn [worldguard region] [add/update/del]. Sets your current position as respawn point."
+        aliases: [dspawn]
 permissions:
-    bountyhunters.list:
+    dspawn.list:
         default: op
-    bountyhunters.admin:
-        default: op
-    bountyhunters.leaderboard:
-        default: op
-    bountyhunters.add:
-        default: op
-    bountyhunters.title:
-        default: op
-    bountyhunters.quote:
-        default: op
-    bountyhunters.claim:
-        default: op
-    bountyhunters.immunity.bypass:
+    dspawn.admin:
         default: false
-    bountyhunters.immunity:
-        default: false
-    bountyhunters.untargetable:
-        default: false
-    bountyhunters.untargetable.bypass:
-        default: false
-    bountyhunters.update-notify:
-        default: op

@@ -1,17 +1,6 @@
 name: DeathSpawn
-version: 0.8.0
+version: 1.0.0
 main: de.degra.deathspawn.Deathspawn
 author: Degra
 api-version: "1.14"
 depend: [WorldGuard]
-commands:
-    dspawns:
-        description: "List the current deathspawn zones."
-    deathspawn:
-        description: "Use dspawn [worldguard region] [add/update/del]. Sets your current position as respawn point."
-        aliases: [dspawn]
-permissions:
-    dspawn.list:
-        default: op
-    dspawn.admin:
-        default: false

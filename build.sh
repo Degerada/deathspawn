@@ -2,7 +2,7 @@
 
 ## Configs
 serverLoc=/home/oliver/minecraft-server/paper1.14
-pluginDest=$serverLoc/plugins/deathspawn.jar
+pluginDest=$serverLoc/plugins/
 
 # Build jar file
 ./gradlew fatJar
@@ -13,4 +13,4 @@ if [ -e "pluginDest" ]; then
 fi
 
 # Copy created jar file
-cp build/libs/deathspawn* $pluginDest
+cp build/deathspawn* $pluginDest

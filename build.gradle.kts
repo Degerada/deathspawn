@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URI
 
 group = "de.degra"
-version = "0.1-SNAPSHOT"
+version = "1.0"
 
 plugins {
     kotlin("jvm") version "1.3.41"
@@ -25,10 +25,9 @@ dependencies {
 }
 
 tasks.create<Jar>("fatJar") {
-    appendix = "fat"
     setDuplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    destinationDir = File("build")
     manifest {
-        //attributes(mapOf("Main-Class" to "Main")) // replace it with your own
     }
     val sourceMain = sourceSets["main"]
     from(sourceMain.output)

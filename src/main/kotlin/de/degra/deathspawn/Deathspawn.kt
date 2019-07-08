@@ -11,7 +11,7 @@ import java.util.logging.Level
 class Deathspawn : JavaPlugin() {
 
     companion object {
-        val DEATH_RESPAWN_FLAG = LocationFlag("death-respawn")
+        val DEATH_RESPAWN_FLAG = LocationFlag("dspawn")
     }
 
     override fun onLoad() {

@@ -15,10 +15,10 @@ class Deathspawn : JavaPlugin() {
     }
 
     override fun onLoad() {
-        val registry = WorldGuard.getInstance().flagRegistry;
+        val registry = WorldGuard.getInstance().flagRegistry
         try {
             // register our flag with the registry
-            registry.register(DEATH_RESPAWN_FLAG);
+            registry.register(DEATH_RESPAWN_FLAG)
         } catch (e: FlagConflictException) {
             logger.log(Level.SEVERE, e.localizedMessage)
         }

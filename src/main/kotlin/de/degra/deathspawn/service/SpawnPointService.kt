@@ -9,27 +9,47 @@ import org.bukkit.Location
 
 object SpawnPointService {
 
-    private val regionContainer: RegionContainer = WorldGuard.getInstance().platform.regionContainer
+    private val regionContainer: RegionContainer by lazy { WorldGuard.getInstance().platform.regionContainer }
 
     var respawnZones: MutableList<DeathspawnEntry> = FilePersistService.readFromFile()
 
-    fun addRespawnZone(newEntry: DeathspawnEntry) {
-        respawnZones.plus(newEntry)
+    fun addRespawnZone(location: Location, zoneName: String): DeathspawnEntry {
+        var nextId = if (respawnZones.size > 0) {
+            respawnZones.maxBy { it.id }!!.id + 1
+        } else {
+            1
+        }
+        val deathspawnEntry = DeathspawnEntry(nextId, zoneName, location)
+        addRespawnZone(deathspawnEntry)
+        return deathspawnEntry
+    }
 
-        FilePersistService.saveToFile(respawnZones)
-        this.respawnZones = FilePersistService.readFromFile()
+    fun addRespawnZone(newEntry: DeathspawnEntry) {
+        respawnZones.add(newEntry)
+
+        refreshZones(respawnZones)
     }
 
     fun updateRespawnZone(updatedEntry: DeathspawnEntry) {
-        //TODO: UPDATE
+        respawnZones.removeIf { it.deathZoneId == updatedEntry.deathZoneId }
+        respawnZones.add(updatedEntry)
 
-        FilePersistService.saveToFile(respawnZones)
-        this.respawnZones = FilePersistService.readFromFile()
+        refreshZones(respawnZones)
+    }
+
+    fun deleteRespawnZone(id: Int) {
+        respawnZones.removeIf { it.id == id }
+
+        refreshZones(respawnZones)
     }
 
     fun deleteRespawnZone(entry: DeathspawnEntry) {
-        respawnZones.minus(entry)
+        respawnZones.remove(entry)
 
+        refreshZones(respawnZones)
+    }
+
+    fun refreshZones(respawnZones: MutableList<DeathspawnEntry>) {
         FilePersistService.saveToFile(respawnZones)
         this.respawnZones = FilePersistService.readFromFile()
     }
@@ -43,10 +63,10 @@ object SpawnPointService {
             .getApplicableRegions(BukkitAdapter.asBlockVector(deathLocation))) {
             val zone = respawnZones
                 .stream()
-                .filter { it.zone.id == region.id }
+                .filter { it.deathZoneId == region.id }
                 .findAny()
 
-            if(zone.isPresent){
+            if (zone.isPresent) {
                 return zone.get().revLoc
             }
         }

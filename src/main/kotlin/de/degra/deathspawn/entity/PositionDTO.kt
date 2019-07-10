@@ -1,4 +1,4 @@
-package de.degra.deathspawn.dto
+package de.degra.deathspawn.entity
 
 import org.bukkit.Location
 import java.util.*

@@ -45,6 +45,7 @@ tasks.create<Jar>("fatJar") {
 
     into("/") {
         from(file("./plugin.yml"))
+        from(file("./config.yml"))
     }
 }
 

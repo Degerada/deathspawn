@@ -1,0 +1,8 @@
+sql:
+  enable: false
+  address: localhost
+  port: 3306
+  database: deathspawn
+  username: deathspawn
+  password: deathspawn
+  save-cache: 30 #Save from cache every 30 minutes. -1 to only save on regular plugin/server shutdown

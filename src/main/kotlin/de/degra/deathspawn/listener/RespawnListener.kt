@@ -17,9 +17,6 @@ class RespawnListener : Listener {
             return
         }
 
-        val tempLoc = player.bedSpawnLocation
         player.setBedSpawnLocation(respawnLocation, true)
-        player.spigot().respawn()
-        player.bedSpawnLocation = tempLoc
     }
 }

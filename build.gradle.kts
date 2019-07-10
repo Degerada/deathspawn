@@ -15,13 +15,16 @@ repositories {
         name = "destroystokyo-repo"
         url = URI.create("https://repo.destroystokyo.com/repository/maven-public/")
     }
-    maven { url = URI.create("https://maven.sk89q.com/repo/") }
+    maven {
+        url = URI.create("https://maven.sk89q.com/repo/")
+    }
 }
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("com.destroystokyo.paper", "paper-api", "1.14.3-R0.1-SNAPSHOT")
     compileOnly("com.sk89q.worldguard", "worldguard-bukkit", "7.0.0")
+    compileOnly("mysql", "mysql-connector-java", "5.1.47")
 }
 
 tasks.create<Jar>("fatJar") {

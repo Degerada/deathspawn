@@ -12,10 +12,7 @@ class RespawnListener : Listener {
         val player = event.entity
         val deathLocation = player.location
 
-        val respawnLocation = SpawnPointService.getRespawnPos(deathLocation)
-        if (respawnLocation == null) {
-            return
-        }
+        val respawnLocation = SpawnPointService.getRespawnPos(player, deathLocation)
 
         player.setBedSpawnLocation(respawnLocation, true)
     }

@@ -1,19 +1,22 @@
 package de.degra.deathspawn.service
 
-import com.sk89q.squirrelid.util.UUIDs
 import com.sk89q.worldedit.bukkit.BukkitAdapter
 import com.sk89q.worldguard.WorldGuard
 import de.degra.deathspawn.Deathspawn.Companion.DEATH_RESPAWN_FLAG
 import de.degra.deathspawn.entity.PositionDTO
+import de.degra.deathspawn.models.DeathspawnEntry
+import de.degra.deathspawn.models.DeathspawnState
 import org.bukkit.Bukkit
 import org.bukkit.Location
+import org.bukkit.entity.Player
+import java.util.*
 
 
 object SpawnPointService {
 
-    var respawnMap: Map<UUIDs, PositionDTO> = mapOf()
+    private var playerRespawns: Map<UUID, DeathspawnEntry> = mapOf()
 
-    fun getRespawnPos(deathLocation: Location): Location? {
+    fun getRespawnPos(player: Player, deathLocation: Location): Location? {
         val container = WorldGuard.getInstance().platform.regionContainer
         val query = container.createQuery()
         val set = query.getApplicableRegions(BukkitAdapter.adapt(deathLocation))
@@ -26,7 +29,12 @@ object SpawnPointService {
                 }
             }
         }
-        return null
+        val entry = playerRespawns[player.uniqueId]
+        if(entry != null && entry.state != DeathspawnState.ToDelete){
+            playerRespawns.getOrElse(player.uniqueId).state = DeathspawnState.ToDelete
+            return entry.revLoc
+        }
+        return player.bedSpawnLocation
     }
 
     private fun mapPositionToLocation(position: PositionDTO): Location {
